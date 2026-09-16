@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Simple Clock</title>
+
+<style type="text/css">
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+body {
+    font-family:
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif;
+    -webkit-user-select: none;
+    -webkit-text-size-adjust: none;
+}
+
+#clock {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#time {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: -75px;
+
+    font-size: 110px;
+    line-height: 110px;
+
+    font-weight: 300;
+    letter-spacing: 2px;
+
+    color: #ffffff;
+}
+
+#seconds {
+    font-size: 34px;
+    vertical-align: baseline;
+    margin-left: 8px;
+    color: #8fdcff;
+    font-weight: 300;
+}
+
+#date {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: 50px;
+
+    font-size: 22px;
+    line-height: 30px;
+
+    color: #aaaaaa;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* 縦画面になった場合 */
+@media screen and (orientation: portrait) {
+
+    #time {
+        font-size: 70px;
+        line-height: 70px;
+        margin-top: -50px;
+    }
+
+    #seconds {
+        font-size: 24px;
+    }
+
+    #date {
+        margin-top: 35px;
+        font-size: 18px;
+    }
+}
+
+</style>
+
+<script type="text/javascript">
+
+function pad(num) {
+    if (num < 10) {
+        return "0" + num;
+    }
+    return num;
+}
+
+function updateClock() {
+
+    var now = new Date();
+
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;
+    var day = now.getDate();
+
+    var week = now.getDay();
+
+    var weekNames = [
+        "SUN",
+        "MON",
+        "TUE",
+        "WED",
+        "THU",
+        "FRI",
+        "SAT"
+    ];
+
+    document.getElementById("hourMinute").innerHTML =
+        pad(hour) + ":" + pad(minute);
+
+    document.getElementById("seconds").innerHTML =
+        pad(second);
+
+    document.getElementById("date").innerHTML =
+        year + "." +
+        pad(month) + "." +
+        pad(day) +
+        "  " +
+        weekNames[week];
+
+}
+
+function startClock() {
+
+    updateClock();
+
+    setInterval(
+        updateClock,
+        1000
+    );
+
+}
+
+</script>
+
+</head>
+
+<body onload="startClock();">
+
+<div id="clock">
+
+```
+<div id="time">
+    <span id="hourMinute">00:00</span>
+    <span id="seconds">00</span>
+</div>
+
+<div id="date">
+    0000.00.00 SUN
+</div>
+```
+
+</div>
+
+</body>
+</html>
